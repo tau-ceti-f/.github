@@ -3,10 +3,6 @@ body {
   background: #FFF;
 }
 
-iframe {
-  display: block;
-  background: #FFF;
-  border: none;
-  height: 100vh;
-  width: 100vw;
+nft-card {
+  margin: 5vh;
 }
