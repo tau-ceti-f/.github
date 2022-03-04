@@ -1,0 +1,23 @@
+name: React
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Git Checkout
+      uses: actions/checkout@v2
+    - name: Setup Node
+      uses: actions/setup-node@v2
+      with:
+        node-version: 17.x
+        cache: 'npm'
+    - name: Prepare Node
+      run: npm ci
+    - name: Deploy Node
+      run: npm run deploy
