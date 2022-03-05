@@ -1,52 +1,57 @@
 name: React
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    push:
+        branches: [ main ]
+    pull_request:
+        branches: [ main ]
 
 jobs:
 
-  analyze:
-    runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v1
-      with:
-        languages: "javascript"
-    - name: Setup Node
-      uses: actions/setup-node@v3.0.0
-    - name: Prepare Node
-      run: npm ci
-    - name: Build Node
-      run: npm run build
-    - name: Analyze CodeQL
-      uses: github/codeql-action/analyze@v1
+    analyze:
+        runs-on: ubuntu-latest
+        permissions:
+            actions: read
+            contents: read
+            security-events: write
+        steps:
+        - name: Checkout repository
+            uses: actions/checkout@v2
+        - name: Initialize CodeQL
+            uses: github/codeql-action/init@v1
+            with:
+                languages: "javascript"
+        - name: Setup Node
+            uses: actions/setup-node@v3.0.0
+            with:
+                node-version: 17.x
+                cache: 'npm'
+        - name: Build Node
+            run: |
+                npm run build
+                npm ci
+        - name: Analyze CodeQL
+            uses: github/codeql-action/analyze@v1
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: analyze
-    if: github.ref == 'refs/heads/main'
-    steps:
-    - name: Checkout Git
-      uses: actions/checkout@v2
-    - name: Prepare Git
-      run: |
-          git config --global user.name github-actions
-          git config --global user.email github-actions@github.com
-    - name: Setup Node
-      uses: actions/setup-node@v2
-      with:
-        node-version: 17.x
-        cache: 'npm'
-    - name: Prepare Node
-      run: npm ci
-    - name: Deploy Node
-      run: npm run deploy
+    deploy:
+        runs-on: ubuntu-latest
+        needs: analyze
+        if: github.ref == 'refs/heads/main'
+        steps:
+        - name: Checkout Git
+            uses: actions/checkout@v2
+        - name: Setup Node
+            uses: actions/setup-node@v2
+            with:
+                node-version: 17.x
+                cache: 'npm'
+        - name: Deploy Node
+            run: |
+                git config --global user.name github-actions
+                git config --global user.email github-actions@github.com
+                git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+                npm ci
+                npm run deploy
+            env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+     
