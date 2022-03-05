@@ -1,14 +1,37 @@
-import "./App.css";
-import React from "react";
+import "./app.css";
+import { useEffect, useRef } from "react";
+import { Pages, indexOfSmallest } from "./util";
+import { useParams } from "react-router-dom";
+import { Header } from "./header";
+import { Page } from "./page";
+import { Footer } from "./footer";
 
-export default class App extends React.Component {
-  render() {
+export const App = () => {
+    const pages = Pages.map((x, index) => <Page innerRef={useRef()} key={index+1} text={x} />);
+    const { id } = useParams();
+    const index = parseInt(id) || 0;
+    window.history.replaceState(null, "", "/" + index);
+
+    const onScroll = () => {
+        const elements = pages.map(x => x.props.innerRef.current);
+        const offsets = elements.map(x => Math.abs(x.getBoundingClientRect().top));
+        const index = indexOfSmallest(offsets);
+        window.history.replaceState(null, "", "/" + pages[index].key);
+    };
+
+    useEffect(() => {
+        window.addEventListener("scroll", onScroll, true);
+        if (index > 0) {
+            pages[index - 1].ref.current.scrollIntoView()
+        }
+        return () => { window.removeEventListener("scroll", onScroll); };
+    }, []);
+
     return (
-      <div className="App">
-        <nft-card id="1" contractAddress="0x2953399124f0cbb46d2cbacd8a89cf0599974963" tokenId="38096592515908936471390429145670091293778445456265336293823658315293854269441"></nft-card>
-        <nft-card id="2" contractAddress="0x2953399124f0cbb46d2cbacd8a89cf0599974963" tokenId="38096592515908936471390429145670091293778445456265336293823658316393365897217"></nft-card>
-        <nft-card id="3" contractAddress="0x2953399124f0cbb46d2cbacd8a89cf0599974963" tokenId="38096592515908936471390429145670091293778445456265336293823658317492877524993"></nft-card>
-      </div>
+        <div className="app">
+            <Header />
+            {pages}
+            <Footer />
+        </div>
     );
-  }
-}
+};
