@@ -1,29 +1,33 @@
 import "./app.css";
 import { useEffect, useRef } from "react";
-import { Pages, indexOfSmallest } from "./util";
-import { useParams } from "react-router-dom";
+import { Pages } from "./util";
 import { Header } from "./header";
 import { Page } from "./page";
 import { Footer } from "./footer";
 
-export const App = () => {
+export const App = (props) => {
     const pages = Pages.map((x, index) => <Page innerRef={useRef()} key={index+1} text={x} />);
-    const { id } = useParams();
-    const index = parseInt(id) || 0;
-    window.history.replaceState(null, "", "/" + index);
+    var index = parseInt(props.id) || 0;
 
     const onScroll = () => {
         const elements = pages.map(x => x.props.innerRef.current);
-        const offsets = elements.map(x => Math.abs(x.getBoundingClientRect().top));
-        const index = indexOfSmallest(offsets);
-        window.history.replaceState(null, "", "/" + pages[index].key);
+        const rects = elements.map(x => x.getBoundingClientRect());
+        const offsets = rects.map(x => x.top);
+        const newIndex = offsets.findIndex(x => x > 0);
+        if (index != newIndex) {
+            window.history.replaceState(null, "", "/#/" + newIndex);
+            index = newIndex;
+        }
     };
 
     useEffect(() => {
         window.addEventListener("scroll", onScroll, true);
-        if (index > 0) {
-            pages[index - 1].ref.current.scrollIntoView()
+        if (index == 0) {
+            window.scrollTo(0, 0);
+        } else {
+            pages[index - 1].props.innerRef.current.scrollIntoView()
         }
+        window.history.replaceState(null, "", "/#/" + index);
         return () => { window.removeEventListener("scroll", onScroll); };
     }, []);
 

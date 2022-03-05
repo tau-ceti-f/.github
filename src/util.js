@@ -1,11 +1,3 @@
-export const indexOfSmallest = (a) => {
-    var lowest = 0;
-    for (var i = 1; i < a.length; i++) {
-        if (a[i] < a[lowest]) lowest = i;
-    }
-    return lowest;
-}
-
 export const contract = "0x2953399124f0cbb46d2cbacd8a89cf0599974963"
 
 export const Pages = [
