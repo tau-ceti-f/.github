@@ -5,6 +5,7 @@ import App from "./App";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getPerformance } from "firebase/performance";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCpRAziu3-OqFZ6VAOJOXmsiQm2-okEaG8",
@@ -22,7 +23,11 @@ const performance = getPerformance(app);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/:id" component={App} />
+        </Routes>
+      </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
