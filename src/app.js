@@ -21,12 +21,12 @@ export const App = (props) => {
     };
 
     useEffect(() => {
-        window.addEventListener("scroll", onScroll, true);
         if (index == 0) {
             window.scrollTo(0, 0);
         } else {
             pages[index - 1].props.innerRef.current.scrollIntoView()
         }
+        window.addEventListener("scroll", onScroll, true);
         window.history.replaceState(null, "", "/#/" + index);
         return () => { window.removeEventListener("scroll", onScroll); };
     }, []);
