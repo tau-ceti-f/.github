@@ -16,6 +16,18 @@
     color: #BDBDBD
 }
 
+.footer-contact {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.footer-contact:hover {
+    text-decoration: underline;
+}
+
 .footer-button {
     float: right;
     margin-right: 20px;
