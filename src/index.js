@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getPerformance } from "firebase/performance";
 import { Home } from "./components/home.js"
-import ReactDOM from "react-dom";
+import { render } from "react-dom";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCpRAziu3-OqFZ6VAOJOXmsiQm2-okEaG8",
@@ -18,7 +18,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const performance = getPerformance(app);
 
-ReactDOM.render(
+render(
     <Home />,
     document.getElementById("root")
 );

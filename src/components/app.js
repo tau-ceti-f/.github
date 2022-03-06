@@ -1,45 +1,65 @@
 import "../styles/app.css";
-import { useEffect, useRef } from "react";
-import { Pages } from "../utility/blockchain";
+import { Component, createRef } from "react";
 import { Header } from "./header";
 import { Page } from "./page";
 import { Footer } from "./footer";
 import { animateScroll } from "react-scroll";
+import { assets } from "../utility/blockchain";
 
-export const App = (props) => {
-    const pages = Pages.map((x, index) => <Page innerRef={useRef()} key={index+1} text={x} />);
-    var index = parseInt(props.id) || 0;
-    var ref = useRef();
+export class App extends Component {
+    constructor(props) {
+        super(props);
+        this.index = parseInt(props.id) || 0;
+        this.pageRefs = assets.map(_ => createRef());
+        this.ref = createRef();
+        this.onScroll = this.onScroll.bind(this)
+        this.onResize = this.onResize.bind(this)
+    }
 
-    const onScroll = () => {
-        const offsets = pages.map(x => x.props.innerRef.current.getBoundingClientRect().top);
-        const newIndex = offsets.findIndex(x => x >= 0);
-        if (index != newIndex) {
-            window.history.replaceState(null, "", "/#/" + newIndex);
-            index = newIndex;
+    onScroll() {
+        const offsets = this.pageRefs.map(x => x.current.getBoundingClientRect().top);
+        let newIndex = offsets.findIndex(x => x >= 0);
+        if (newIndex == -1) {
+            newIndex = this.pageRefs.length;
         }
-    };
+        if (this.index != newIndex) {
+            window.history.replaceState(null, "", "/#/" + newIndex);
+            this.index = newIndex;
+        }
+    }
 
-    useEffect(() => {
-        if (index == 0) {
+    onResize() {
+        if (this.index == 0) {
             animateScroll.scrollToTop();
         } else {
-            const divOffset = ref.current.getBoundingClientRect().top;
-            const pageOffset = pages[index - 1].props.innerRef.current.getBoundingClientRect().top;
+            const divOffset = this.ref.current.getBoundingClientRect().top;
+            const pageOffset = this.pageRefs[this.index - 1].current.getBoundingClientRect().top;
             const offset = pageOffset - divOffset + 1;
-            animateScroll.scrollTo(offset);
+            animateScroll.scrollTo(offset + 1);
         }
-        window.addEventListener("scroll", onScroll, true);
-        window.history.replaceState(null, "", "/#/" + index);
-        return () => { window.removeEventListener("scroll", onScroll); };
-    }, []);
+    }
 
-    return (
-        <div className="app" ref={ref}>
-            <Header />
-            {pages}
-            <p className="continued">To be continued...</p>
-            <Footer />
-        </div>
-    );
-};
+    componentDidMount() {
+        window.history.replaceState(null, "", "/#/" + this.index);
+        window.addEventListener("scroll", this.onScroll, true);
+        window.addEventListener("resize", this.onResize, true);
+        setTimeout(this.onResize, 100);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("scroll", this.onScroll);
+        window.removeEventListener("resize", this.onResize);
+    }
+
+    render() {
+        const pages = assets.map((x, i) => <Page innerRef={this.pageRefs[i]} key={x} id={x} />);
+        return (
+            <div className="app" ref={this.ref}>
+                <Header />
+                {pages}
+                <p className="continued">To be continued...</p>
+                <Footer />
+            </div>
+        );
+    }
+}
