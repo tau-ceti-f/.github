@@ -1,4 +1,4 @@
-import "./footer.css";
+import "../styles/footer.css";
 import { useEffect, useState } from "react";
 import { animateScroll } from "react-scroll";
 

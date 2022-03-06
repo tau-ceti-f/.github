@@ -1,12 +1,8 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import { App } from "./app";
-import { Pages } from "./util";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getPerformance } from "firebase/performance";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { Home } from "./components/home.js"
+import ReactDOM from "react-dom";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCpRAziu3-OqFZ6VAOJOXmsiQm2-okEaG8",
@@ -22,16 +18,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const performance = getPerformance(app);
 
-const routes = Pages.map((_, index) => <Route key={index} path={"/" + (index + 1)} element={ <App id={index + 1} />} />);
-
 ReactDOM.render(
-    <React.StrictMode>
-        <HashRouter>
-            <Routes>
-                {routes}
-                <Route path="*" element={ <App id="0" /> } />
-            </Routes>
-        </HashRouter>
-    </React.StrictMode>,
+    <Home />,
     document.getElementById("root")
 );

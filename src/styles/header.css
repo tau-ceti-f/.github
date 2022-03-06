@@ -1,0 +1,33 @@
+.header {
+    padding: 50px 20%;
+}
+
+.header-img {
+    border: solid 2px white;
+    border-radius: 50%;
+}
+
+.header-text {
+    color: white;
+    text-align: justify;
+}
+
+.header-text a {
+    text-decoration: none;
+}
+
+.header-text a:link {
+    color: white;
+}
+
+.header-text a:hover {
+    text-decoration: underline;
+}
+
+.header-text a:visited {
+    color: white;
+}
+
+.header-signature {
+    margin-left: -15px;
+}

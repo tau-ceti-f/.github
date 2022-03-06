@@ -1,6 +1,6 @@
-import "./app.css";
+import "../styles/app.css";
 import { useEffect, useRef } from "react";
-import { Pages } from "./util";
+import { Pages } from "../utility/blockchain";
 import { Header } from "./header";
 import { Page } from "./page";
 import { Footer } from "./footer";
@@ -38,6 +38,7 @@ export const App = (props) => {
         <div className="app" ref={ref}>
             <Header />
             {pages}
+            <p className="continued">To be continued...</p>
             <Footer />
         </div>
     );
