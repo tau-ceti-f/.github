@@ -28,6 +28,7 @@ export const Header = () => {
                 <br />
                 <img className="header-signature" src={signature} alt="Elusyve" />
             </p>
+            {/* TODO: Stats from OpenSea */}
         </div>
     );
 }

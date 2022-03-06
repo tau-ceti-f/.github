@@ -1,5 +1,17 @@
 .header {
-    padding: 50px 20%;
+    padding: 10% 20%;
+}
+
+@media only screen and (max-width: 1024px) {
+    .header {
+        padding: 10% 10%;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .header {
+        padding: 10% 5%;
+    }
 }
 
 .header-img {
