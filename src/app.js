@@ -4,16 +4,16 @@ import { Pages } from "./util";
 import { Header } from "./header";
 import { Page } from "./page";
 import { Footer } from "./footer";
+import { animateScroll } from "react-scroll";
 
 export const App = (props) => {
     const pages = Pages.map((x, index) => <Page innerRef={useRef()} key={index+1} text={x} />);
     var index = parseInt(props.id) || 0;
+    var ref = useRef();
 
     const onScroll = () => {
-        const elements = pages.map(x => x.props.innerRef.current);
-        const rects = elements.map(x => x.getBoundingClientRect());
-        const offsets = rects.map(x => x.top);
-        const newIndex = offsets.findIndex(x => x > 0);
+        const offsets = pages.map(x => x.props.innerRef.current.getBoundingClientRect().top);
+        const newIndex = offsets.findIndex(x => x >= 0);
         if (index != newIndex) {
             window.history.replaceState(null, "", "/#/" + newIndex);
             index = newIndex;
@@ -22,9 +22,12 @@ export const App = (props) => {
 
     useEffect(() => {
         if (index == 0) {
-            window.scrollTo(0, 0);
+            animateScroll.scrollToTop();
         } else {
-            pages[index - 1].props.innerRef.current.scrollIntoView()
+            const divOffset = ref.current.getBoundingClientRect().top;
+            const pageOffset = pages[index - 1].props.innerRef.current.getBoundingClientRect().top;
+            const offset = pageOffset - divOffset + 1;
+            animateScroll.scrollTo(offset);
         }
         window.addEventListener("scroll", onScroll, true);
         window.history.replaceState(null, "", "/#/" + index);
@@ -32,7 +35,7 @@ export const App = (props) => {
     }, []);
 
     return (
-        <div className="app">
+        <div className="app" ref={ref}>
             <Header />
             {pages}
             <Footer />

@@ -26,12 +26,12 @@ const routes = Pages.map((_, index) => <Route key={index} path={"/" + (index + 1
 
 ReactDOM.render(
     <React.StrictMode>
-            <HashRouter>
-                <Routes>
-                    {routes}
-                    <Route path="*" element={ <App id="0" /> } />
-                </Routes>
-            </HashRouter>
+        <HashRouter>
+            <Routes>
+                {routes}
+                <Route path="*" element={ <App id="0" /> } />
+            </Routes>
+        </HashRouter>
     </React.StrictMode>,
     document.getElementById("root")
 );

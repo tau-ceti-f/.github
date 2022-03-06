@@ -1,3 +1,5 @@
 .page {
-    margin: 45vh;
+    margin: 25px;
+    padding: 45vh;
+    background-color: blue;
 }
