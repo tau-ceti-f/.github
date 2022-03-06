@@ -1,12 +1,12 @@
 import "../styles/page.css";
 import { Component } from "react";
-import { useMetadata } from "../utility/blockchain";
+import { assetMetadata } from "../utility/blockchain";
 
 export class Page extends Component {
     constructor(props) {
         super(props);
         this.size = { width: 0, height: 0 }
-        this.state = { "title": "", "text": "" }
+        this.state = { title: "", text: "" }
         this.onScroll = this.onScroll.bind(this)
         this.onResize = this.onResize.bind(this)
     }
@@ -26,10 +26,10 @@ export class Page extends Component {
         const offset = this.props.innerRef.current.getBoundingClientRect().top;
         if (offset < this.size.height && !this.loaded) {
             this.loaded = true;
-            useMetadata(this.props.id).then(x => {
+            assetMetadata(this.props.id).then(x => {
                 this.setState({
-                    "title": x.metadata.name,
-                    "text": x.metadata.description
+                    title: x.name,
+                    text: x.description
                 });
             });
         }

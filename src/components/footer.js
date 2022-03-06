@@ -6,7 +6,7 @@ export class Footer extends Component {
     constructor(props) {
         super(props);
         this.state = { showTopButton: false };
-        this.onScroll = this.onScroll.bind(this)
+        this.onScroll = this.onScroll.bind(this);
     }
 
     scrollToTop() {
