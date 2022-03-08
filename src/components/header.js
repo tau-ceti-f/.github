@@ -46,10 +46,10 @@ export class Header extends Component {
                     <br />
                     <img className="header-signature" src={signature} alt="Elusyve" />
                 </p>
-                <p>{this.state.items} pages</p>
-                <p>{this.state.owners} owners</p>
-                <p>{this.state.price} floor price</p>
-                <p>{this.state.traded} volume traded</p>
+                <span>{this.state.items}<br />pages</span>
+                <span>{this.state.owners}<br />owners</span>
+                <span>{this.state.price} ETH<br />floor price</span>
+                <span>{this.state.traded} ETH<br />volume traded</span>
             </div>
         );
     }

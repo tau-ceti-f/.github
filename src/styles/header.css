@@ -1,16 +1,16 @@
 .header {
-    padding: 10% 20%;
+    padding: 10% 20% 5% 20%;
 }
 
 @media only screen and (max-width: 1024px) {
     .header {
-        padding: 10% 10%;
+        padding: 10% 10% 5% 10%;
     }
 }
 
 @media only screen and (max-width: 480px) {
     .header {
-        padding: 10% 5%;
+        padding: 10% 5% 5% 5%;
     }
 }
 
@@ -42,4 +42,9 @@
 
 .header-signature {
     margin-left: -15px;
+}
+
+.header span {
+    padding: 15px;
+    display: inline-block;
 }
