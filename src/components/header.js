@@ -46,10 +46,13 @@ export class Header extends Component {
                     <br />
                     <img className="header-signature" src={signature} alt="Elusyve" />
                 </p>
-                <span>{this.state.items}<br />pages</span>
-                <span>{this.state.owners}<br />owners</span>
-                <span>{this.state.price} ETH<br />floor price</span>
-                <span>{this.state.traded} ETH<br />volume traded</span>
+                <a href="https://opensea.io/collection/tau-ceti-f" className="header-stats">
+                    <span>{this.state.items}<br />pages</span>
+                    <span>{this.state.owners}<br />owners</span>
+                    <span>{this.state.price} ETH<br />floor price</span>
+                    <span>{this.state.traded} ETH<br />volume traded</span>
+                    <div></div>
+                </a>
             </div>
         );
     }
