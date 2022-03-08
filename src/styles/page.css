@@ -7,13 +7,13 @@
 
 @media only screen and (max-width: 1024px) {
     .page {
-        padding: 25px 10%;
+        margin: 25px 10%;
     }
 }
 
 @media only screen and (max-width: 480px) {
     .page {
-        padding: 25px 5%;
+        margin: 25px 5%;
     }
 }
 
