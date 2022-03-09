@@ -1,6 +1,6 @@
 import "../styles/header.css";
-import logo from "../resources/logo.png";
-import signature from "../resources/signature.png";
+import logo from "../resources/logo.webp";
+import signature from "../resources/signature.webp";
 import { Component } from "react";
 import { collectionStats } from "../utility/blockchain";
 
