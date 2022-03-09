@@ -12,7 +12,7 @@ export const assetMetadata = async (id) => {
 };
 
 export const collectionStats = async () => {
-    const url = "https://api.opensea.io/api/v2/collection/tau-ceti-f";
+    const url = "https://api.opensea.io/api/v1/collection/tau-ceti-f";
     const response = await fetch(url, requestOptions);
     const json = await response.json();
     return json.collection.stats;
