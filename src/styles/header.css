@@ -1,16 +1,19 @@
 .header {
-    padding: 10% 20% 5% 20%;
+    padding: 100px 20% 25px 20%;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 @media only screen and (max-width: 1024px) {
     .header {
-        padding: 10% 10% 5% 10%;
+        padding: 100px 10% 25px 10%;
     }
 }
 
 @media only screen and (max-width: 480px) {
     .header {
-        padding: 10% 5% 5% 5%;
+        padding: 100px 5% 25px 5%;
     }
 }
 
@@ -26,9 +29,6 @@
 
 .header-text a {
     text-decoration: none;
-}
-
-.header-text a:link {
     color: white;
 }
 

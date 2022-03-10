@@ -4,6 +4,7 @@ const contract = "0x2953399124f0cbb46d2cbacd8a89cf0599974963";
 const requestOptions = { method: "GET", redirect: "follow" };
 const endpoint = "https://polygon-mainnet.g.alchemy.com/v2/8JZJotCyll3izhHySeZDLqDufGJu6UdU/getNFTMetadata";
 
+// Can be replaced with OpenSea API when Polygon becomes available
 export const assetMetadata = async (id) => {
     const url = endpoint + "?contractAddress=" + contract + "&tokenId=" + id + "&tokenType=ERC721";
     const response = await fetch(url, requestOptions);
@@ -18,8 +19,13 @@ export const collectionStats = async () => {
     return json.collection.stats;
 }
 
-export const openSeaLink = (id) => {
-    return "https://opensea.io/assets/matic/" + contract + "/" + id
+// Can be replaced with OpenSea API when Polygon becomes available
+export const assetLink = (id) => {
+    return "https://opensea.io/assets/matic/" + contract + "/" + id;
+};
+
+export const userLink = (username) => {
+    return "https://opensea.io/" + username;
 };
 
 export const assets = [
@@ -43,5 +49,8 @@ export const assets = [
     "38096592515908936471390429145670091293778445456265336293823658335085063569409",
     "38096592515908936471390429145670091293778445456265336293823658333985551941633",
     "38096592515908936471390429145670091293778445456265336293823658336184575197185",
+    "38096592515908936471390429145670091293778445456265336293823658337284086824961",
+    "38096592515908936471390429145670091293778445456265336293823658338383598452737",
+    "38096592515908936471390429145670091293778445456265336293823658339483110080513",
 ];
 

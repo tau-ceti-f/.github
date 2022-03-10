@@ -29,6 +29,7 @@ export class App extends Component {
     }
 
     onResize() {
+        return; // Disable this cause with the dynamic loading it is buggy
         if (this.index == 0) {
             animateScroll.scrollToTop();
         } else {
